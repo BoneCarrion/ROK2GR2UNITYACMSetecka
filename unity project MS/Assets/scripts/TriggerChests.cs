@@ -12,6 +12,7 @@ public class TriggerChests : MonoBehaviour
     {
         if (playerCollision.CompareTag("collectibles"))
         {
+            audiosource.Play();
             Destroy(playerCollision.gameObject);
         }
     }
