@@ -3,19 +3,32 @@ using UnityEngine;
 public class playermovement : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
-    public float jumpForce = 10f;
+    public AudioSource rollingSound; // Zmienione na public!
     private Rigidbody2D rb;
-    private bool isGroundedl;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
     }
 
-    private void Update()
+    void Update()
     {
         float movex = Input.GetAxis("Horizontal");
+
+        // Ruch kulki
         rb.linearVelocity = new Vector2(movex * moveSpeed, rb.linearVelocity.y);
+
+        // Obsługa dźwięku
+        if (Mathf.Abs(movex) > 0.1f)
+        {
+            if (!rollingSound.isPlaying)
+            {
+                rollingSound.Play();
+            }
+        }
+        else
+        {
+            rollingSound.Stop();
+        }
     }
 }
